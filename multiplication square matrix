@@ -1,0 +1,64 @@
+#include <stdio.h>
+
+#define MAX 10
+
+void multiplyMatrices(int first[MAX][MAX], int second[MAX][MAX], int result[MAX][MAX], int row1, int col1, int row2, int col2) {
+    int i, j, k;
+    
+    for (i = 0; i < row1; i++) {
+        for (j = 0; j < col2; j++) {
+            result[i][j] = 0;
+            for (k = 0; k < col1; k++) {
+                result[i][j] += first[i][k] * second[k][j];
+            }
+        }
+    }
+}
+
+void displayMatrix(int matrix[MAX][MAX], int row, int col) {
+    int i, j;
+    for (i = 0; i < row; i++) {
+        for (j = 0; j < col; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int first[MAX][MAX], second[MAX][MAX], result[MAX][MAX];
+    int row1, col1, row2, col2;
+    int i, j;
+
+    printf("Enter rows and columns for the first matrix: ");
+    scanf("%d %d", &row1, &col1);
+
+    printf("Enter rows and columns for the second matrix: ");
+    scanf("%d %d", &row2, &col2);
+
+    if (col1 != row2) {
+        printf("Matrix multiplication is not possible. The number of columns in the first matrix must be equal to the number of rows in the second matrix.\n");
+        return 1;
+    }
+
+    printf("Enter elements of the first matrix:\n");
+    for (i = 0; i < row1; i++) {
+        for (j = 0; j < col1; j++) {
+            scanf("%d", &first[i][j]);
+        }
+    }
+
+    printf("Enter elements of the second matrix:\n");
+    for (i = 0; i < row2; i++) {
+        for (j = 0; j < col2; j++) {
+            scanf("%d", &second[i][j]);
+        }
+    }
+
+    multiplyMatrices(first, second, result, row1, col1, row2, col2);
+
+    printf("Resultant Matrix:\n");
+    displayMatrix(result, row1, col2);
+
+    return 0;
+}
